@@ -1,5 +1,11 @@
 # nostr-cs
 
+## 0.0.4
+
+### Patch Changes
+
+- 4e03d43: Add relay infrastructure injection so host apps can supply their own pool and relay index while preserving default relay discovery behavior.
+
 ## 0.0.3
 
 ### Patch Changes
