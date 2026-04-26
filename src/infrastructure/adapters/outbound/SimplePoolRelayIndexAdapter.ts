@@ -6,12 +6,19 @@ import type {
 } from '../../../application/ports/outbound/RelayIndexPort.js'
 
 export class SimplePoolRelayIndexAdapter implements RelayIndexPort {
-  private static readonly MONITOR_RELAYS = [
+  private static readonly DEFAULT_MONITOR_RELAYS = [
     'wss://relay.nostr.watch',
     'wss://relaypag.es',
   ]
 
-  constructor(private readonly pool: SimplePool) {}
+  private readonly monitorRelays: string[]
+
+  constructor(
+    private readonly pool: SimplePool,
+    monitorRelays: readonly string[] = SimplePoolRelayIndexAdapter.DEFAULT_MONITOR_RELAYS,
+  ) {
+    this.monitorRelays = [...monitorRelays]
+  }
 
   async fetchPublicRelays(filter: RelayIndexFilter = {}): Promise<string[]> {
     const markers: string[] = []
@@ -27,7 +34,7 @@ export class SimplePoolRelayIndexAdapter implements RelayIndexPort {
     }
 
     const events = await this.pool.querySync(
-      SimplePoolRelayIndexAdapter.MONITOR_RELAYS,
+      this.monitorRelays,
       reqFilter,
       { maxWait: 3000 },
     )
