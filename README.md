@@ -229,6 +229,40 @@ const client = new CSClient({
 await client.connect()
 ```
 
+### Advanced relay infrastructure
+
+`CSClient` creates its own `SimplePool` and public relay discovery adapter by
+default. Host apps that already manage Nostr relay connections can inject those
+dependencies instead:
+
+```ts
+import { CSClient, type RelayIndexPort } from 'nostr-cs'
+
+const relayIndex: RelayIndexPort = {
+  fetchPublicRelays: async () => ['wss://relay.example'],
+}
+
+const client = new CSClient({
+  key: { type: 'signer', value: keyProvider },
+  relays: { bootstrap: ['wss://relay.example'] },
+  infrastructure: {
+    pool: sharedSimplePool,
+    relayIndex,
+  },
+})
+```
+
+When a pool is injected, `disconnect()` stops SDK subscriptions but does not
+destroy the external pool. This lets apps share WebSocket connections and
+control which discovery sources are queried while preserving the default SDK
+behavior for simple integrations.
+
+An external pool must be paired with an explicit `relayIndex`. This prevents a
+host app from accidentally sending public relay discovery queries to the SDK's
+default monitor relays through a shared pool. If you only need custom public
+relay discovery and do not need pool sharing, inject `relayIndex` without
+`pool`.
+
 ### Customer
 
 ```ts

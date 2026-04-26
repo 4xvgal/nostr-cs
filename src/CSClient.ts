@@ -1,6 +1,8 @@
 import type { KeyProvider } from './application/ports/outbound/KeyProvider.js'
 import type { EventBusPort } from './application/ports/outbound/EventBusPort.js'
+import type { RelayIndexPort } from './application/ports/outbound/RelayIndexPort.js'
 import type { ResolvedRelayConfig } from './application/config/ResolvedRelayConfig.js'
+import type { SimplePool } from 'nostr-tools/pool'
 
 import type {
   CreateTicketParams,
@@ -34,6 +36,28 @@ export interface RelayConfig {
   dm?: string[]
 }
 
+export type CSClientInfrastructure =
+  | {
+      /**
+       * Optional public relay discovery adapter. Supply this when the host app
+       * needs to control discovery sources.
+       */
+      relayIndex?: RelayIndexPort
+      pool?: undefined
+    }
+  | {
+      /**
+       * Externally-owned relay pool. When supplied, CSClient will reuse it and
+       * will not destroy it during disconnect().
+       */
+      pool: SimplePool
+      /**
+       * Required with an external pool so the host app explicitly controls
+       * public relay discovery instead of silently using SDK defaults.
+       */
+      relayIndex: RelayIndexPort
+    }
+
 export interface CSClientConfig {
   key: KeyInput
   relays: RelayConfig
@@ -41,6 +65,7 @@ export interface CSClientConfig {
     name: string
     csRole: 'agent' | 'customer'
   }
+  infrastructure?: CSClientInfrastructure
 }
 
 function resolveRelayConfig(cfg: RelayConfig): ResolvedRelayConfig {
@@ -65,7 +90,12 @@ export class CSClient {
 
   async connect(): Promise<void> {
     const resolved = resolveRelayConfig(this.config.relays)
-    this.container = buildContainer(this.keyProvider, resolved, this.config.profile)
+    this.container = buildContainer(
+      this.keyProvider,
+      resolved,
+      this.config.profile,
+      this.config.infrastructure,
+    )
 
     await this.container.bootstrapUseCase.execute()
 
@@ -80,7 +110,10 @@ export class CSClient {
     if (!this.container) return
     this.container.subscribeAsAgentUseCase.stop()
     this.container.subscribeAsCustomerUseCase.stop()
-    this.container.pool.destroy()
+    if (this.container.ownsPool) {
+      this.container.pool.destroy()
+    }
+    this.container = null
   }
 
   /** Pull events authored by this user that the role's `#p:[me]` subscription

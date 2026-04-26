@@ -23,9 +23,11 @@ import { Nip59CryptoAdapter } from '../adapters/outbound/Nip59CryptoAdapter.js'
 import { SimplePoolProfileAdapter } from '../adapters/outbound/SimplePoolProfileAdapter.js'
 import { SimplePoolRelayAdapter } from '../adapters/outbound/SimplePoolRelayAdapter.js'
 import { SimplePoolRelayIndexAdapter } from '../adapters/outbound/SimplePoolRelayIndexAdapter.js'
+import type { RelayIndexPort } from '../../application/ports/outbound/RelayIndexPort.js'
 
 export interface DIContainer {
   pool: SimplePool
+  ownsPool: boolean
   eventBus: EventBusPort
   createTicketUseCase: CreateTicketUseCase
   replyTicketUseCase: ReplyTicketUseCase
@@ -40,23 +42,35 @@ export interface DIContainer {
   bootstrapUseCase: BootstrapUseCase
 }
 
+export type ContainerInfrastructure =
+  | { relayIndex?: RelayIndexPort; pool?: undefined }
+  | { pool: SimplePool; relayIndex: RelayIndexPort }
+
 export function buildContainer(
   keyProvider: KeyProvider,
   relays: ResolvedRelayConfig,
   profileMeta?: { name: string; csRole: 'agent' | 'customer' },
+  infrastructure: ContainerInfrastructure = {},
 ): DIContainer {
-  const pool = new SimplePool()
+  const hasExternalPool = infrastructure.pool !== undefined
+  if (hasExternalPool && infrastructure.relayIndex === undefined) {
+    throw new Error('relayIndex is required when injecting an external pool')
+  }
+
+  const pool = infrastructure.pool ?? new SimplePool()
+  const ownsPool = !hasExternalPool
 
   const relayPort = new SimplePoolRelayAdapter(pool, keyProvider, relays.read)
   const cryptoPort = new Nip59CryptoAdapter(keyProvider)
   const profilePort = new SimplePoolProfileAdapter(pool, keyProvider, relays.bootstrap)
-  const relayIndexPort = new SimplePoolRelayIndexAdapter(pool)
+  const relayIndexPort = infrastructure.relayIndex ?? new SimplePoolRelayIndexAdapter(pool)
   const eventBus = new InMemoryEventBus()
 
   const relayDiscovery = new RelayDiscoveryService(profilePort, relays.bootstrap)
 
   return {
     pool,
+    ownsPool,
     eventBus,
     createTicketUseCase: new CreateTicketUseCase(
       relayPort,

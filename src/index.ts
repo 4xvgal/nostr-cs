@@ -1,5 +1,10 @@
 export { CSClient } from './CSClient.js'
-export type { CSClientConfig, RelayConfig, KeyInput } from './CSClient.js'
+export type {
+  CSClientConfig,
+  CSClientInfrastructure,
+  RelayConfig,
+  KeyInput,
+} from './CSClient.js'
 
 export { PrivateKeyProvider } from './infrastructure/adapters/outbound/key-providers/PrivateKeyProvider.js'
 export { NIP07KeyProvider } from './infrastructure/adapters/outbound/key-providers/NIP07KeyProvider.js'
