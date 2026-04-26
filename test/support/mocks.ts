@@ -126,34 +126,35 @@ export function makeCrypto(overrides: CryptoOverrides = {}): {
 // ── KeyProvider ────────────────────────────────────────────────────────
 
 export interface KeyProviderRecorder {
-  signAndPublishCalls: { raw: UnsignedEvent; targetRelays: string[] | undefined }[]
+  signCalls: { event: UnsignedEvent }[]
+  encryptCalls: { plaintext: string; recipient: string }[]
+  decryptCalls: { ciphertext: string; sender: string }[]
 }
 
 export function makeKeyProvider(input: {
   pubkey: string
-  withSignAndPublish?: boolean
 }): { port: KeyProvider; rec: KeyProviderRecorder } {
-  const rec: KeyProviderRecorder = { signAndPublishCalls: [] }
-  const base: KeyProvider = {
+  const rec: KeyProviderRecorder = { signCalls: [], encryptCalls: [], decryptCalls: [] }
+  const port: KeyProvider = {
     getPubkey: async () => input.pubkey,
-    getNDKSigner: () => {
-      throw new Error('getNDKSigner not available in test')
+    sign: async (event) => {
+      rec.signCalls.push({ event })
+      return {
+        ...event,
+        id: 'sign-id-' + rec.signCalls.length,
+        pubkey: input.pubkey,
+        sig: 'sign-sig-' + rec.signCalls.length,
+      }
+    },
+    encrypt: async (plaintext, recipient) => {
+      rec.encryptCalls.push({ plaintext, recipient })
+      return `kp-enc(${recipient}):${plaintext}`
+    },
+    decrypt: async (ciphertext, sender) => {
+      rec.decryptCalls.push({ ciphertext, sender })
+      return `kp-plain(${ciphertext})`
     },
   }
-  const port: KeyProvider = input.withSignAndPublish
-    ? {
-        ...base,
-        signAndPublish: async (raw, targetRelays) => {
-          rec.signAndPublishCalls.push({ raw, targetRelays })
-          return {
-            ...raw,
-            id: 'ss-id-' + rec.signAndPublishCalls.length,
-            pubkey: input.pubkey,
-            sig: 'ss-sig-' + rec.signAndPublishCalls.length,
-          }
-        },
-      }
-    : base
   return { port, rec }
 }
 

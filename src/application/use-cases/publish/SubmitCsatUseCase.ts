@@ -1,12 +1,10 @@
 import type { NostrEventPort, UnsignedEvent } from '../../ports/outbound/NostrEventPort.js'
-import type { KeyProvider } from '../../ports/outbound/KeyProvider.js'
 import type { RelayDiscoveryService } from '../../../domain/services/RelayDiscoveryService.js'
 import type { SubmitCsatParams } from '../../ports/inbound/CustomerPort.js'
 
 export class SubmitCsatUseCase {
   constructor(
     private readonly nostrEvent: NostrEventPort,
-    private readonly keyProvider: KeyProvider,
     private readonly relayDiscovery: RelayDiscoveryService,
   ) {}
 
@@ -23,10 +21,6 @@ export class SubmitCsatUseCase {
       content: p.comment,
       created_at: Math.floor(Date.now() / 1000),
     }
-    if (this.keyProvider.signAndPublish) {
-      await this.keyProvider.signAndPublish(raw, targetRelays)
-    } else {
-      await this.nostrEvent.publish(raw, targetRelays)
-    }
+    await this.nostrEvent.publish(raw, targetRelays)
   }
 }

@@ -1,4 +1,4 @@
-import NDK from '@nostr-dev-kit/ndk'
+import { SimplePool } from 'nostr-tools/pool'
 
 import type { EventBusPort } from '../../application/ports/outbound/EventBusPort.js'
 import type { KeyProvider } from '../../application/ports/outbound/KeyProvider.js'
@@ -17,13 +17,13 @@ import { SubscribeAsAgentUseCase } from '../../application/use-cases/subscribe/S
 import { SubscribeAsCustomerUseCase } from '../../application/use-cases/subscribe/SubscribeAsCustomerUseCase.js'
 
 import { InMemoryEventBus } from '../adapters/outbound/InMemoryEventBus.js'
-import { NDKCryptoAdapter } from '../adapters/outbound/NDKCryptoAdapter.js'
-import { NDKProfileAdapter } from '../adapters/outbound/NDKProfileAdapter.js'
-import { NDKRelayAdapter } from '../adapters/outbound/NDKRelayAdapter.js'
-import { NDKRelayIndexAdapter } from '../adapters/outbound/NDKRelayIndexAdapter.js'
+import { Nip59CryptoAdapter } from '../adapters/outbound/Nip59CryptoAdapter.js'
+import { SimplePoolProfileAdapter } from '../adapters/outbound/SimplePoolProfileAdapter.js'
+import { SimplePoolRelayAdapter } from '../adapters/outbound/SimplePoolRelayAdapter.js'
+import { SimplePoolRelayIndexAdapter } from '../adapters/outbound/SimplePoolRelayIndexAdapter.js'
 
 export interface DIContainer {
-  ndk: NDK
+  pool: SimplePool
   eventBus: EventBusPort
   createTicketUseCase: CreateTicketUseCase
   replyTicketUseCase: ReplyTicketUseCase
@@ -36,27 +36,23 @@ export interface DIContainer {
   bootstrapUseCase: BootstrapUseCase
 }
 
-export async function buildContainer(
+export function buildContainer(
   keyProvider: KeyProvider,
   relays: ResolvedRelayConfig,
   profileMeta?: { name: string; csRole: 'agent' | 'customer' },
-): Promise<DIContainer> {
-  const ndk = new NDK({
-    explicitRelayUrls: [...relays.bootstrap],
-    signer: keyProvider.getNDKSigner(),
-  })
-  await ndk.connect()
+): DIContainer {
+  const pool = new SimplePool()
 
-  const relayPort = new NDKRelayAdapter(ndk, keyProvider)
-  const cryptoPort = new NDKCryptoAdapter(ndk, keyProvider)
-  const profilePort = new NDKProfileAdapter(ndk, keyProvider)
-  const relayIndexPort = new NDKRelayIndexAdapter(ndk)
+  const relayPort = new SimplePoolRelayAdapter(pool, keyProvider, relays.read)
+  const cryptoPort = new Nip59CryptoAdapter(keyProvider)
+  const profilePort = new SimplePoolProfileAdapter(pool, keyProvider, relays.bootstrap)
+  const relayIndexPort = new SimplePoolRelayIndexAdapter(pool)
   const eventBus = new InMemoryEventBus()
 
   const relayDiscovery = new RelayDiscoveryService(profilePort, relays.bootstrap)
 
   return {
-    ndk,
+    pool,
     eventBus,
     createTicketUseCase: new CreateTicketUseCase(
       relayPort,
@@ -65,21 +61,11 @@ export async function buildContainer(
       relayDiscovery,
       eventBus,
     ),
-    replyTicketUseCase: new ReplyTicketUseCase(
-      relayPort,
-      cryptoPort,
-      keyProvider,
-      relayDiscovery,
-    ),
-    updateStatusUseCase: new UpdateStatusUseCase(relayPort, keyProvider, relayDiscovery),
-    sendDMUseCase: new SendDMUseCase(relayPort, cryptoPort, keyProvider, relayDiscovery),
-    internalNoteUseCase: new InternalNoteUseCase(
-      relayPort,
-      cryptoPort,
-      keyProvider,
-      relayDiscovery,
-    ),
-    submitCsatUseCase: new SubmitCsatUseCase(relayPort, keyProvider, relayDiscovery),
+    replyTicketUseCase: new ReplyTicketUseCase(relayPort, cryptoPort, relayDiscovery),
+    updateStatusUseCase: new UpdateStatusUseCase(relayPort, relayDiscovery),
+    sendDMUseCase: new SendDMUseCase(relayPort, cryptoPort, relayDiscovery),
+    internalNoteUseCase: new InternalNoteUseCase(relayPort, cryptoPort, relayDiscovery),
+    submitCsatUseCase: new SubmitCsatUseCase(relayPort, relayDiscovery),
     subscribeAsCustomerUseCase: new SubscribeAsCustomerUseCase(
       relayPort,
       cryptoPort,

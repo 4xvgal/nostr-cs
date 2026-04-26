@@ -1,17 +1,17 @@
 {
   "name": "nostr-cs",
   "version": "0.1.0",
-  "type": "module",
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/bun": "latest"
+  },
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },
+  "type": "module",
   "dependencies": {
-    "@nostr-dev-kit/ndk": "latest"
-  },
-  "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/bun": "latest"
+    "nostr-tools": "^2.23.3"
   }
 }

@@ -1,5 +1,3 @@
-import type NDK from '@nostr-dev-kit/ndk'
-
 import type { KeyProvider } from './application/ports/outbound/KeyProvider.js'
 import type { EventBusPort } from './application/ports/outbound/EventBusPort.js'
 import type { ResolvedRelayConfig } from './application/config/ResolvedRelayConfig.js'
@@ -67,7 +65,7 @@ export class CSClient {
 
   async connect(): Promise<void> {
     const resolved = resolveRelayConfig(this.config.relays)
-    this.container = await buildContainer(this.keyProvider, resolved, this.config.profile)
+    this.container = buildContainer(this.keyProvider, resolved, this.config.profile)
 
     await this.container.bootstrapUseCase.execute()
 
@@ -79,12 +77,10 @@ export class CSClient {
   }
 
   async disconnect(): Promise<void> {
-    this.container?.subscribeAsAgentUseCase.stop()
-    this.container?.subscribeAsCustomerUseCase.stop()
-    const ndk: NDK | undefined = this.container?.ndk
-    if (ndk) {
-      for (const r of ndk.pool.relays.values()) r.disconnect()
-    }
+    if (!this.container) return
+    this.container.subscribeAsAgentUseCase.stop()
+    this.container.subscribeAsCustomerUseCase.stop()
+    this.container.pool.destroy()
   }
 
   private get bus(): EventBusPort {

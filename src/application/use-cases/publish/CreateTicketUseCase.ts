@@ -42,9 +42,7 @@ export class CreateTicketUseCase {
       created_at: Math.floor(Date.now() / 1000),
     }
 
-    const signed = this.keyProvider.signAndPublish
-      ? await this.keyProvider.signAndPublish(raw, targetRelays)
-      : await this.nostrEvent.publish(raw, targetRelays)
+    const signed = await this.nostrEvent.publish(raw, targetRelays)
 
     const ticket = new Ticket(
       ticketId,

@@ -80,28 +80,6 @@ describe('CreateTicketUseCase', () => {
     expect(erec.events[0]).toEqual({ type: 'ticket:created', payload: ticket })
   })
 
-  test('signAndPublish path: delegates signing, skips nostrEvent.publish', async () => {
-    const { port: nostrEvent, rec: nrec } = makeNostrEvent()
-    const { port: crypto } = makeCrypto()
-    const { port: keyProvider, rec: krec } = makeKeyProvider({
-      pubkey: 'pk-customer',
-      withSignAndPublish: true,
-    })
-    const { port: eventBus } = makeEventBus()
-    const discovery = makeRelayDiscovery({
-      publishRelaysByPubkey: { 'pk-agent': ['wss://r.example'] },
-    })
-
-    const uc = new CreateTicketUseCase(nostrEvent, crypto, keyProvider, discovery, eventBus)
-    const ticket = await uc.execute(PARAMS)
-
-    expect(nrec.publish).toHaveLength(0)
-    expect(krec.signAndPublishCalls).toHaveLength(1)
-    expect(krec.signAndPublishCalls[0]!.targetRelays).toEqual(['wss://r.example'])
-    expect(krec.signAndPublishCalls[0]!.raw.kind).toBe(7700)
-    expect(ticket.eventId).toBe('ss-id-1')
-  })
-
   test('falls back to bootstrap relays when agent NIP-65 missing', async () => {
     const { port: nostrEvent, rec: nrec } = makeNostrEvent()
     const { port: crypto } = makeCrypto()
