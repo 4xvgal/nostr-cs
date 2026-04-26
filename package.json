@@ -1,7 +1,8 @@
 {
   "name": "nostr-cs",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
+  "description": "Embeddable customer-support SDK over Nostr — tickets, replies, DMs, CSAT, end-to-end encrypted via NIP-44 + NIP-17.",
+  "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -11,15 +12,57 @@
       "default": "./src/index.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "docs/MESSAGE-ENVELOPE.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "bun test"
+    "test": "bun test",
+    "build": "tsup",
+    "prepublishOnly": "bun run typecheck && bun test && bun run build"
   },
+  "keywords": [
+    "nostr",
+    "customer-support",
+    "sdk",
+    "typescript",
+    "nip-17",
+    "nip-44",
+    "nip-78",
+    "end-to-end-encryption",
+    "hexagonal-architecture",
+    "ticketing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4xvgal/nostr-cs.git"
+  },
+  "homepage": "https://github.com/4xvgal/nostr-cs#readme",
+  "bugs": {
+    "url": "https://github.com/4xvgal/nostr-cs/issues"
+  },
+  "sideEffects": false,
   "dependencies": {
     "nostr-tools": "^2.23.3"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/bun": "latest"
+    "@changesets/cli": "^2.31.0",
+    "@types/bun": "latest",
+    "tsup": "^8.5.1",
+    "typescript": "^5.4.0"
   }
 }
