@@ -1,5 +1,5 @@
 import type { NostrEventPort, UnsignedEvent } from '../../ports/outbound/NostrEventPort.js'
-import type { RelayDiscoveryService } from '../../../domain/services/RelayDiscoveryService.js'
+import type { RelayDiscoveryService } from '../../services/RelayDiscoveryService.js'
 import type { UpdateStatusParams } from '../../ports/inbound/AgentPort.js'
 
 export class UpdateStatusUseCase {

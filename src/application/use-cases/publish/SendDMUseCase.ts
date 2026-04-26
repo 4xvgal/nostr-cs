@@ -1,6 +1,6 @@
 import type { NostrEventPort } from '../../ports/outbound/NostrEventPort.js'
 import type { CryptoPort, Nip17Rumor } from '../../ports/outbound/CryptoPort.js'
-import type { RelayDiscoveryService } from '../../../domain/services/RelayDiscoveryService.js'
+import type { RelayDiscoveryService } from '../../services/RelayDiscoveryService.js'
 import type { SendMessageParams } from '../../ports/inbound/CustomerPort.js'
 
 export class SendDMUseCase {

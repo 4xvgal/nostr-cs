@@ -16,7 +16,7 @@ import type {
 } from '../../src/application/ports/outbound/EventBusPort.js'
 import type { ProfilePort } from '../../src/application/ports/outbound/ProfilePort.js'
 import type { RelayIndexPort } from '../../src/application/ports/outbound/RelayIndexPort.js'
-import { RelayDiscoveryService } from '../../src/domain/services/RelayDiscoveryService.js'
+import { RelayDiscoveryService } from '../../src/application/services/RelayDiscoveryService.js'
 import { RelaySet } from '../../src/domain/value-objects/RelaySet.js'
 
 // ── NostrEvent ─────────────────────────────────────────────────────────

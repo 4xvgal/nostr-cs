@@ -2,7 +2,7 @@ import type { NostrEventPort, UnsignedEvent } from '../../ports/outbound/NostrEv
 import type { CryptoPort } from '../../ports/outbound/CryptoPort.js'
 import type { KeyProvider } from '../../ports/outbound/KeyProvider.js'
 import type { EventBusPort } from '../../ports/outbound/EventBusPort.js'
-import type { RelayDiscoveryService } from '../../../domain/services/RelayDiscoveryService.js'
+import type { RelayDiscoveryService } from '../../services/RelayDiscoveryService.js'
 import type { CreateTicketParams } from '../../ports/inbound/CustomerPort.js'
 import { Ticket } from '../../../domain/entities/Ticket.js'
 import { TicketId } from '../../../domain/value-objects/TicketId.js'

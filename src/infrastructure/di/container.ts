@@ -4,7 +4,7 @@ import type { EventBusPort } from '../../application/ports/outbound/EventBusPort
 import type { KeyProvider } from '../../application/ports/outbound/KeyProvider.js'
 import type { ResolvedRelayConfig } from '../../application/config/ResolvedRelayConfig.js'
 
-import { RelayDiscoveryService } from '../../domain/services/RelayDiscoveryService.js'
+import { RelayDiscoveryService } from '../../application/services/RelayDiscoveryService.js'
 
 import { BootstrapUseCase } from '../../application/use-cases/publish/BootstrapUseCase.js'
 import { CreateTicketUseCase } from '../../application/use-cases/publish/CreateTicketUseCase.js'

@@ -1,6 +1,6 @@
 import type { NostrEventPort, UnsignedEvent } from '../../ports/outbound/NostrEventPort.js'
 import type { CryptoPort } from '../../ports/outbound/CryptoPort.js'
-import type { RelayDiscoveryService } from '../../../domain/services/RelayDiscoveryService.js'
+import type { RelayDiscoveryService } from '../../services/RelayDiscoveryService.js'
 import type { InternalNoteParams } from '../../ports/inbound/AgentPort.js'
 
 export class InternalNoteUseCase {

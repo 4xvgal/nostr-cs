@@ -1,6 +1,5 @@
-import type { ProfilePort } from '../../application/ports/outbound/ProfilePort.js'
-import { RelaySet } from '../value-objects/RelaySet.js'
-import type { NostrProfile } from '../entities/NostrProfile.js'
+import type { ProfilePort } from '../ports/outbound/ProfilePort.js'
+import { RelaySet } from '../../domain/value-objects/RelaySet.js'
 
 export class RelayDiscoveryService {
   constructor(
@@ -8,12 +7,7 @@ export class RelayDiscoveryService {
     private readonly bootstrapRelays: string[],
   ) {}
 
-  async resolveProfile(pubkey: string): Promise<NostrProfile> {
-    const relaySet = await this.resolveRelays(pubkey)
-    return this.profilePort.fetchProfile(pubkey, relaySet.write)
-  }
-
-  async resolveRelays(pubkey: string): Promise<RelaySet> {
+  private async resolveRelays(pubkey: string): Promise<RelaySet> {
     try {
       return await this.profilePort.fetchRelaySet(pubkey)
     } catch {
@@ -31,7 +25,7 @@ export class RelayDiscoveryService {
       const dm = await this.profilePort.fetchDMRelays(recipientPubkey)
       if (dm.length > 0) return dm
     } catch {
-      /* fall through */
+      /* fall through to publish-relay cascade */
     }
     return this.getPublishRelays(recipientPubkey)
   }
