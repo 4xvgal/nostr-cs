@@ -1,6 +1,6 @@
 {
   "name": "nostr-cs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Embeddable customer-support SDK over Nostr — tickets, replies, DMs, CSAT, end-to-end encrypted via NIP-44 + NIP-17.",
   "license": "MIT",
   "type": "module",
