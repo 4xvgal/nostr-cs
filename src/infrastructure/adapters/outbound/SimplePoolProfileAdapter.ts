@@ -4,6 +4,7 @@ import type { ProfilePort } from '../../../application/ports/outbound/ProfilePor
 import type { KeyProvider } from '../../../application/ports/outbound/KeyProvider.js'
 import { RelaySet } from '../../../domain/value-objects/RelaySet.js'
 import { NostrProfile } from '../../../domain/entities/NostrProfile.js'
+import { publishToAtLeastOneRelay } from './publishToAtLeastOneRelay.js'
 
 export class SimplePoolProfileAdapter implements ProfilePort {
   constructor(
@@ -30,7 +31,7 @@ export class SimplePoolProfileAdapter implements ProfilePort {
       content: '',
       created_at: Math.floor(Date.now() / 1000),
     })
-    await Promise.any(this.pool.publish(targetRelays, signed as NtEvent)).catch(() => {})
+    await publishToAtLeastOneRelay(this.pool, targetRelays, signed as NtEvent)
   }
 
   async fetchDMRelays(pubkey: string): Promise<string[]> {
@@ -53,7 +54,7 @@ export class SimplePoolProfileAdapter implements ProfilePort {
       content: '',
       created_at: Math.floor(Date.now() / 1000),
     })
-    await Promise.any(this.pool.publish(targetRelays, signed as NtEvent)).catch(() => {})
+    await publishToAtLeastOneRelay(this.pool, targetRelays, signed as NtEvent)
   }
 
   async fetchProfile(pubkey: string, hintRelays?: string[]): Promise<NostrProfile> {
@@ -96,6 +97,6 @@ export class SimplePoolProfileAdapter implements ProfilePort {
       }),
       created_at: Math.floor(Date.now() / 1000),
     })
-    await Promise.any(this.pool.publish(targetRelays, signed as NtEvent)).catch(() => {})
+    await publishToAtLeastOneRelay(this.pool, targetRelays, signed as NtEvent)
   }
 }
