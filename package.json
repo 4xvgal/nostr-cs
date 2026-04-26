@@ -1,17 +1,25 @@
 {
   "name": "nostr-cs",
   "version": "0.1.0",
-  "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/bun": "latest"
-  },
   "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },
-  "type": "module",
   "dependencies": {
     "nostr-tools": "^2.23.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/bun": "latest"
   }
 }

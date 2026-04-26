@@ -15,6 +15,8 @@ import { SubmitCsatUseCase } from '../../application/use-cases/publish/SubmitCsa
 import { UpdateStatusUseCase } from '../../application/use-cases/publish/UpdateStatusUseCase.js'
 import { SubscribeAsAgentUseCase } from '../../application/use-cases/subscribe/SubscribeAsAgentUseCase.js'
 import { SubscribeAsCustomerUseCase } from '../../application/use-cases/subscribe/SubscribeAsCustomerUseCase.js'
+import { PullOwnHistoryUseCase } from '../../application/use-cases/pull/PullOwnHistoryUseCase.js'
+import { AppDataUseCase } from '../../application/use-cases/app-data/AppDataUseCase.js'
 
 import { InMemoryEventBus } from '../adapters/outbound/InMemoryEventBus.js'
 import { Nip59CryptoAdapter } from '../adapters/outbound/Nip59CryptoAdapter.js'
@@ -33,6 +35,8 @@ export interface DIContainer {
   submitCsatUseCase: SubmitCsatUseCase
   subscribeAsCustomerUseCase: SubscribeAsCustomerUseCase
   subscribeAsAgentUseCase: SubscribeAsAgentUseCase
+  pullOwnHistoryUseCase: PullOwnHistoryUseCase
+  appDataUseCase: AppDataUseCase
   bootstrapUseCase: BootstrapUseCase
 }
 
@@ -80,6 +84,14 @@ export function buildContainer(
       relays,
       eventBus,
     ),
+    pullOwnHistoryUseCase: new PullOwnHistoryUseCase(
+      relayPort,
+      cryptoPort,
+      keyProvider,
+      relays,
+      eventBus,
+    ),
+    appDataUseCase: new AppDataUseCase(relayPort, cryptoPort, keyProvider, relays),
     bootstrapUseCase: new BootstrapUseCase(
       profilePort,
       relayIndexPort,

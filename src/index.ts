@@ -42,3 +42,6 @@ export type { CsatResponse } from './domain/entities/CsatResponse.js'
 export type { TicketStatus } from './domain/value-objects/TicketStatus.js'
 export type { Priority } from './domain/value-objects/Priority.js'
 export type { Category } from './domain/value-objects/Category.js'
+
+export type { MessageEnvelope, EncryptedAttachment } from './application/codec/envelope.js'
+export { encodeEnvelope, decodeEnvelope } from './application/codec/envelope.js'

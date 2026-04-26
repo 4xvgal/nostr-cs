@@ -83,6 +83,20 @@ export class CSClient {
     this.container.pool.destroy()
   }
 
+  /** Pull events authored by this user that the role's `#p:[me]` subscription
+   *  doesn't see (own tickets/replies/status/notes). Useful on first load of a
+   *  fresh browser where no local cache exists. NIP-17 DMs you sent cannot be
+   *  pulled — they're gift-wrapped to the recipient. */
+  async pullOwnHistory(windowMs?: number): Promise<void> {
+    if (!this.container) throw new Error('not connected')
+    const role = this.config.profile?.csRole ?? 'customer'
+    if (windowMs !== undefined) {
+      await this.container.pullOwnHistoryUseCase.execute(role, windowMs)
+    } else {
+      await this.container.pullOwnHistoryUseCase.execute(role)
+    }
+  }
+
   private get bus(): EventBusPort {
     return this.container!.eventBus
   }
@@ -124,5 +138,21 @@ export class CSClient {
   }
   onCsat(h: (c: CsatResponse) => void): () => void {
     return this.bus.on('csat:submitted', h)
+  }
+
+  /** Save NIP-78 app data (kind 30078, parameterized-replaceable by `d` tag).
+   *  Content is NIP-44-encrypted to self before publishing. */
+  async appDataSave(dTag: string, plaintext: string): Promise<void> {
+    if (!this.container) throw new Error('not connected')
+    await this.container.appDataUseCase.save(dTag, plaintext)
+  }
+
+  /** Load NIP-78 app data by `d` tag. Returns null if no event found within
+   *  the timeout window or if decryption fails. */
+  async appDataLoad(dTag: string, windowMs?: number): Promise<string | null> {
+    if (!this.container) throw new Error('not connected')
+    return windowMs !== undefined
+      ? this.container.appDataUseCase.load(dTag, windowMs)
+      : this.container.appDataUseCase.load(dTag)
   }
 }
