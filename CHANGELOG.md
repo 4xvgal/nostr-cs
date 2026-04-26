@@ -1,5 +1,11 @@
 # nostr-cs
 
+## 0.0.3
+
+### Patch Changes
+
+- e925737: Fix the published package entrypoints to load from `dist` and surface relay publish failures when no target relay accepts an event.
+
 ## 0.0.2
 
 ### Patch Changes
