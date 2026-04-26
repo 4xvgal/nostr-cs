@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CSClient - Key Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707a6c",
+                        "inverse-primary": "#88d982",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "on-secondary-fixed": "#002107",
+                        "secondary": "#286b33",
+                        "on-primary-fixed": "#002204",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-fixed": "#abf4ac",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-surface-variant": "#40493d",
+                        "background": "#f9f9f9",
+                        "primary-fixed": "#a3f69c",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#1b6d24",
+                        "primary": "#0d631b",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#90d792",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-tertiary-container": "#e8f5e9",
+                        "primary-fixed-dim": "#88d982",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-container": "#657167",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-container": "#2e7238",
+                        "inverse-surface": "#2f3131",
+                        "on-primary-container": "#cbffc2",
+                        "on-primary-fixed-variant": "#005312",
+                        "primary-container": "#2e7d32",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#abf4ac",
+                        "on-secondary-fixed-variant": "#07521d",
+                        "surface-variant": "#e2e2e2",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bfcaba",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "surface-dim": "#dadada",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#4d5950"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "code": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "code": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.05)] border-b border-slate-200 dark:border-slate-800 flex justify-between items-center w-full px-6 h-14 sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-800 dark:text-green-500" data-icon="arrow_back">arrow_back</span>
+<span class="text-xl font-bold tracking-tight text-green-800 dark:text-green-500 font-h2">CSClient</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500" data-icon="sensors">sensors</span>
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</div>
+</header>
+<main class="flex-grow p-lg max-w-md mx-auto w-full pb-32">
+<!-- Step Indicator -->
+<div class="flex items-center gap-2 mb-xl">
+<div class="h-1 flex-grow rounded-full bg-primary"></div>
+<div class="h-1 flex-grow rounded-full bg-primary"></div>
+<div class="h-1 flex-grow rounded-full bg-surface-container-highest"></div>
+</div>
+<!-- Header Section -->
+<section class="mb-xl">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Identity Setup</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Secure your access to the relay network by connecting your Nostr identity.</p>
+</section>
+<!-- Main Content Area - Options Grid -->
+<div class="grid gap-gutter">
+<!-- Browser Extension (NIP-07) -->
+<button class="flex items-center p-md bg-surface-container-lowest border border-outline-variant rounded-lg cursor-pointer hover:bg-slate-50 transition-colors text-left group">
+<div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="extension" style="font-variation-settings: 'FILL' 1;">extension</span>
+</div>
+<div class="flex-grow">
+<span class="block font-h3 text-body-lg text-on-surface font-semibold">NIP-07 Extension</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Login using Alby or Nos2x</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Remote Signer (Nostr Bunker) -->
+<button class="flex items-center p-md bg-surface-container-lowest border border-outline-variant rounded-lg cursor-pointer hover:bg-slate-50 transition-colors text-left group">
+<div class="w-12 h-12 bg-tertiary-fixed rounded-lg flex items-center justify-center mr-md">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" data-icon="dns" style="font-variation-settings: 'FILL' 1;">dns</span>
+</div>
+<div class="flex-grow">
+<span class="block font-h3 text-body-lg text-on-surface font-semibold">Nostr Bunker</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Connect to a remote signing node</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Divider -->
+<div class="relative py-md">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-background px-2 text-on-surface-variant font-label-sm">Or manual entry</span>
+</div>
+</div>
+<!-- Manual Entry Field -->
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Paste Private Key (nsec)</label>
+<div class="relative">
+<input class="w-full h-12 px-md bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-code text-code" placeholder="nsec1..." type="password"/>
+<button class="absolute right-3 top-3 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-error flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                    Keys are stored locally and never touch our servers.
+                </p>
+</div>
+<!-- Generate New Section -->
+<div class="mt-lg pt-lg border-t border-outline-variant">
+<button class="w-full flex items-center justify-center gap-2 p-md bg-primary-container text-on-primary-container rounded-lg font-h3 text-body-lg font-semibold hover:opacity-90 active:opacity-80 transition-all shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    Generate New Key
+                </button>
+<p class="text-center mt-md font-label-sm text-label-sm text-on-surface-variant">
+                    First time using Nostr? We'll generate a secure identity for you.
+                </p>
+</div>
+</div>
+<!-- Visual Anchor (Professional Office Vibe) -->
+<div class="mt-xl rounded-xl overflow-hidden relative h-32 border border-outline-variant">
+<img alt="Professional office background" class="w-full h-full object-cover opacity-20 grayscale" data-alt="clean bright modern corporate office interior with glass partitions and minimalist furniture soft daylight filtering through windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdbYLkudJmJmdpmNFhWJ7HI9dN4mc2MYAiJLKMTVrAdE1jFbOcTwbrUG4sBcyozeJxNj0ivRTu1MOq-LcDlC61hinU8iW96ACuuJJvsdifCe0knReN5tSFjzjsNe9t14aH85BkDTSCvi_glBIUtia1rkVIeN-K6XhZw1FTaGBJTSUsXNzHwBq7HBQFrPSxFvs7Ax_SbkJwwdg7XMuDtvWG54Pebw7DyN7_QonvnnKetLP_3n00hv_kWibB7mRMpzoaVfOViIH6iF0"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center p-md bg-gradient-to-t from-background to-transparent">
+<span class="material-symbols-outlined text-primary text-4xl mb-2" data-icon="security">security</span>
+<span class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest font-bold">Relay Encryption Active</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 md:hidden bg-white/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-green-700 dark:text-green-400 font-bold transition-colors">
+<span class="material-symbols-outlined" data-icon="support_agent" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Tickets</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Relay</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

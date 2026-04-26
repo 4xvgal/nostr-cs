@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707a6c",
+                        "inverse-primary": "#88d982",
+                        "on-tertiary-fixed-variant": "#3e4a41",
+                        "on-secondary-fixed": "#002107",
+                        "secondary": "#286b33",
+                        "on-primary-fixed": "#002204",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-fixed": "#abf4ac",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-surface-variant": "#40493d",
+                        "background": "#f9f9f9",
+                        "primary-fixed": "#a3f69c",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#1b6d24",
+                        "primary": "#0d631b",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#90d792",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#d9e6da",
+                        "on-tertiary-container": "#e8f5e9",
+                        "primary-fixed-dim": "#88d982",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-container": "#657167",
+                        "on-tertiary-fixed": "#131e17",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-container": "#2e7238",
+                        "inverse-surface": "#2f3131",
+                        "on-primary-container": "#cbffc2",
+                        "on-primary-fixed-variant": "#005312",
+                        "primary-container": "#2e7d32",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#abf4ac",
+                        "on-secondary-fixed-variant": "#07521d",
+                        "surface-variant": "#e2e2e2",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#bfcaba",
+                        "tertiary-fixed-dim": "#bdcabe",
+                        "surface-dim": "#dadada",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#4d5950"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "code": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "code": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f9;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.05)] border-b border-slate-200 dark:border-slate-800 flex justify-between items-center w-full px-6 h-14 fixed top-0 z-[60]">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-green-800 dark:text-green-500 font-h2">CSClient</span>
+<div class="flex items-center bg-surface-container rounded-lg px-3 py-1.5 gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]">sensors</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-sm w-48" placeholder="Search Relay Network..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-outline cursor-pointer active:opacity-80 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-2 rounded-full">notifications</button>
+<div class="h-8 w-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant">
+<img class="h-full w-full object-cover" data-alt="professional portrait of a tech support agent in a clean minimalist office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBeoPsAtLL2nh6ej9UBWhtjG2JDI9qFQblrIK5Sf5fwUcFz61wphSqW9_0Y3tGyxfu2lk2dxOOjJZSlOxkabMBlQ_64O7js28eU7Lvzr-yyMPNwlD-0rJAJO9legWeRb2IDqJp6I7QREo7R2PiA4JtrJ1ZJZ8l8AIKRtcxwQgjfK7izl4AbWdxIkFltvj1BXMOjJgs9EOS3aOsLW8ESdRK4kuHKG9lOPS_GJ6vriIym57WNXOvpRWrfIbFbj_cLSrMgn3D1a4ZmRo"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full py-4 bg-slate-50 dark:bg-slate-950 w-64 border-r border-slate-200 dark:border-slate-800 z-50 pt-16">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">hub</span>
+</div>
+<div>
+<h3 class="text-lg font-black text-green-800 font-h3 leading-tight">Support Node</h3>
+<p class="text-[10px] uppercase tracking-wider text-secondary font-label-sm">Relay: Connected</p>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<div class="px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-sm">Dashboard</span>
+</a>
+</div>
+<div class="px-3">
+<a class="flex items-center gap-3 px-3 py-2 bg-[#E8F5E9] dark:bg-green-900/20 text-green-800 dark:text-green-300 border-r-4 border-green-700 transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="font-label-sm">Active Tickets</span>
+</a>
+</div>
+<div class="px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-sm">Customer Log</span>
+</a>
+</div>
+<div class="px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">lan</span>
+<span class="font-label-sm">Relay Network</span>
+</a>
+</div>
+<div class="px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-sm">System Settings</span>
+</a>
+</div>
+</div>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg flex items-center justify-center gap-2 font-label-sm hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Ticket
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-14 min-h-screen flex flex-col md:flex-row">
+<!-- Center Timeline Area -->
+<section class="flex-1 flex flex-col bg-white border-r border-slate-200 min-w-0">
+<!-- Ticket Header -->
+<div class="p-6 border-b border-slate-100 bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="text-label-sm text-outline font-code">#TK-88291</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Active</span>
+</div>
+<h1 class="text-h2 font-h1 text-on-surface">Connection dropping during relay handoff</h1>
+</div>
+<div class="flex gap-2">
+<button class="border border-outline-variant px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:bg-slate-50">
+<span class="material-symbols-outlined text-[18px]">move_to_inbox</span> Assign
+                        </button>
+<button class="bg-primary text-white px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:bg-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]">check_circle</span> Resolve
+                        </button>
+</div>
+</div>
+<div class="flex flex-wrap gap-6 text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-medium">Marcus Chen</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">corporate_fare</span>
+<span>Nexus Systems Corp.</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Opened 4h ago</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">priority_high</span>
+<span class="text-error font-semibold">High Priority</span>
+</div>
+</div>
+</div>
+<!-- Chat-like Timeline -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8 bg-[#FDFDFD]">
+<!-- Initial Query -->
+<div class="flex gap-4 max-w-3xl">
+<div class="h-10 w-10 rounded bg-slate-200 flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-label-sm">Marcus Chen</span>
+<span class="text-[11px] text-outline">10:42 AM</span>
+</div>
+<div class="bg-surface-container-low border border-slate-200 p-4 rounded-xl rounded-tl-none">
+<p class="text-body-md leading-relaxed">
+                                We are experiencing intermittent signal loss whenever a relay node handoff occurs in the Sector 7 cluster. The latency spikes to 1200ms before dropping completely for about 3 seconds.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Internal Note -->
+<div class="flex justify-center">
+<div class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-2 flex items-center gap-3 max-w-2xl">
+<span class="material-symbols-outlined text-outline text-[18px]">sticky_note_2</span>
+<p class="text-label-sm text-on-surface-variant italic">
+<span class="font-bold not-italic">Internal:</span> System logs show hardware sync errors on Node-S7-Alpha. I've flagged this for the infrastructure team.
+                        </p>
+<span class="text-[10px] text-outline ml-4">11:15 AM</span>
+</div>
+</div>
+<!-- Public Reply -->
+<div class="flex gap-4 max-w-3xl ml-auto flex-row-reverse">
+<div class="h-10 w-10 rounded bg-primary-container flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">support_agent</span>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-1 justify-end">
+<span class="text-[11px] text-outline">11:30 AM</span>
+<span class="font-bold text-label-sm">Sarah (Agent)</span>
+</div>
+<div class="bg-primary text-white p-4 rounded-xl rounded-tr-none">
+<p class="text-body-md leading-relaxed">
+                                Hello Marcus, I'm investigating this now. I've identified some anomalies in the Sector 7 Sector Alpha node. Could you confirm if you're using the standard encryption protocol or the legacy one?
+                            </p>
+</div>
+</div>
+</div>
+<!-- Encrypted DM -->
+<div class="flex justify-center">
+<div class="bg-secondary-container/30 border border-secondary/20 rounded-xl p-4 flex gap-4 max-w-xl relative">
+<div class="absolute -top-2 -right-2 bg-secondary text-white rounded-full p-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<div class="h-8 w-8 rounded-full bg-secondary-fixed flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[18px]">shield_person</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-label-sm text-secondary">Encrypted Relay</span>
+<span class="text-[10px] text-outline">12:05 PM</span>
+</div>
+<p class="text-body-md text-on-secondary-container">
+                                [SECURE CHANNEL]: User credential sync attempted on node S7-A. Token mismatch detected. Rotating keys for session NEX-0912.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Composer -->
+<div class="p-4 border-t border-slate-200 bg-white">
+<div class="max-w-4xl mx-auto">
+<!-- 3-way Toggle -->
+<div class="flex mb-4 bg-slate-100 p-1 rounded-lg w-fit">
+<button class="px-4 py-1.5 rounded-md text-label-sm flex items-center gap-2 bg-white shadow-sm text-primary font-semibold">
+<span class="material-symbols-outlined text-[18px]">reply</span> Reply
+                        </button>
+<button class="px-4 py-1.5 rounded-md text-label-sm flex items-center gap-2 text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">lock</span> DM
+                        </button>
+<button class="px-4 py-1.5 rounded-md text-label-sm flex items-center gap-2 text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">note_add</span> Note
+                        </button>
+</div>
+<div class="relative border border-slate-200 rounded-xl overflow-hidden focus-within:border-primary transition-colors">
+<textarea class="w-full min-h-[120px] p-4 text-body-md border-none focus:ring-0 resize-none" placeholder="Type your message here..."></textarea>
+<div class="flex items-center justify-between p-3 bg-slate-50 border-t border-slate-100">
+<div class="flex gap-2">
+<button class="p-2 text-outline hover:bg-slate-200 rounded-lg transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-2 text-outline hover:bg-slate-200 rounded-lg transition-colors">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="p-2 text-outline hover:bg-slate-200 rounded-lg transition-colors">
+<span class="material-symbols-outlined">alternate_email</span>
+</button>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-bold text-label-sm hover:opacity-90 active:scale-95 transition-all">
+                                Send Reply
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar Context -->
+<aside class="w-full md:w-80 bg-surface-container-lowest border-l border-slate-200 p-6 space-y-8 overflow-y-auto max-h-[calc(100vh-3.5rem)] hide-scrollbar">
+<!-- Customer Profile Card -->
+<div>
+<h4 class="text-label-sm text-outline uppercase tracking-widest mb-4 font-bold">Customer Context</h4>
+<div class="flex items-center gap-4 mb-4">
+<img class="h-16 w-16 rounded-xl object-cover border border-slate-200" data-alt="professional headshot of a middle-aged male executive, neutral background, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oXo0lAwXEQWsc3htS7LQl7glaMaHLCMW2nSDm2acT7NETZi3Sq8pjlZoXrQ0G792z7iEsjdPPcpaUkd0YDwByGIKERf4CKPy3i-XjXsm0qbQWh9H5ppsikLZ7ujBAqC1O79PgGZl1RIBa9j8tA4h-Uhp57DjGvaSaID95DFVthCcVw1bHUovVv9NbIjJQGXUZ147Xz-viHAxNLHK8coDqHIB_pGAdWA05e12sowggGchY0280BcNf2ZEiSOLco-_BcokaElBSck"/>
+<div>
+<p class="font-bold text-on-surface">marcus_nostr</p>
+<p class="text-label-sm text-outline">Lead Engineer</p>
+</div>
+</div>
+<div class="space-y-3 bg-slate-50 p-3 rounded-lg border border-slate-100">
+<div class="flex justify-between text-label-sm"><span class="text-outline">npub</span><span class="font-medium">npub1...88kx</span></div>
+</div>
+</div>
+<!-- Recent Tickets Bento -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<h4 class="text-label-sm text-outline uppercase tracking-widest font-bold">Recent History</h4>
+<span class="text-[10px] text-primary font-bold cursor-pointer">View All</span>
+</div>
+<div class="grid grid-cols-1 gap-2">
+<div class="p-3 bg-white border border-slate-200 rounded-lg hover:border-primary transition-colors cursor-pointer">
+<p class="text-label-sm font-bold mb-1">API Authentication failure</p>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-outline">2 days ago</span>
+<span class="bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded text-[9px] uppercase">Resolved</span>
+</div>
+</div>
+<div class="p-3 bg-white border border-slate-200 rounded-lg hover:border-primary transition-colors cursor-pointer">
+<p class="text-label-sm font-bold mb-1">Billing cycle inquiry</p>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-outline">1 week ago</span>
+<span class="bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded text-[9px] uppercase">Closed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- System Status Widget -->
+</aside>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 md:hidden bg-white/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-green-700 dark:text-green-400 font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Tickets</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Relay</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

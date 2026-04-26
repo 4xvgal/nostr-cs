@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#707a6c",
+                    "inverse-primary": "#88d982",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "on-secondary-fixed": "#002107",
+                    "secondary": "#286b33",
+                    "on-primary-fixed": "#002204",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-fixed": "#abf4ac",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface-variant": "#40493d",
+                    "background": "#f9f9f9",
+                    "primary-fixed": "#a3f69c",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#1b6d24",
+                    "primary": "#0d631b",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#90d792",
+                    "on-surface": "#1a1c1c",
+                    "surface-container-high": "#e8e8e8",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d9e6da",
+                    "on-tertiary-container": "#e8f5e9",
+                    "primary-fixed-dim": "#88d982",
+                    "inverse-on-surface": "#f1f1f1",
+                    "tertiary-container": "#657167",
+                    "on-tertiary-fixed": "#131e17",
+                    "surface-container-low": "#f3f3f3",
+                    "on-secondary-container": "#2e7238",
+                    "inverse-surface": "#2f3131",
+                    "on-primary-container": "#cbffc2",
+                    "on-primary-fixed-variant": "#005312",
+                    "primary-container": "#2e7d32",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#abf4ac",
+                    "on-secondary-fixed-variant": "#07521d",
+                    "surface-variant": "#e2e2e2",
+                    "on-background": "#1a1c1c",
+                    "outline-variant": "#bfcaba",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "surface-dim": "#dadada",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#eeeeee",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#4d5950"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "margin": "24px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "code": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "h3": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "code": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "500"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.05)] border-b border-slate-200 dark:border-slate-800 flex justify-between items-center w-full px-6 h-14 fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-green-800 dark:text-green-500 font-['Inter']">CSClient</span>
+<div class="hidden md:flex items-center ml-8 bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined text-outline mr-2 text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-64 p-0 outline-none" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500 hover:bg-slate-50 transition-colors p-2 cursor-pointer active:opacity-80" data-icon="sensors">sensors</span>
+<span class="material-symbols-outlined text-slate-500 hover:bg-slate-50 transition-colors p-2 cursor-pointer active:opacity-80" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a support agent in a clean corporate environment with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr93680V6lrQJgVn6DOuwhWdaykIpVwk2G0TQcrdkAAaNQLXGe1mr18dJPbg20_n-LE0hd3XjF5I9g4WuTKErb1mw-R0g-JrhIb-qlap0r890BfyyeOmzr_zdVZiDssthMG_4ZpOgbc8L9ftZg5l8gVdurXo0x4avPNqIja5A36JTuqtlI3V8LtG9gcvYVsI209-MlfdrVXomtDkgd8spWWK4iHdAdjPTmgPtkinsKsMfIDZt5qKaPdX2eoRWyMRhcRtxhPWsYTfs"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full py-4 bg-slate-50 dark:bg-slate-950 w-64 border-r border-slate-200 dark:border-slate-800 z-40 mt-14">
+<div class="px-6 mb-8 pt-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="lan">lan</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-green-800 leading-none">Support Node</h2>
+<p class="text-[10px] text-green-700 font-medium">Relay: Connected</p>
+</div>
+</div>
+</div>
+<div class="px-3 space-y-1 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all duration-150 ease-in-out font-['Inter'] text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-[#E8F5E9] dark:bg-green-900/20 text-green-800 dark:text-green-300 border-r-4 border-green-700 rounded-l transition-all duration-150 ease-in-out font-['Inter'] text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                Active Tickets
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all duration-150 ease-in-out font-['Inter'] text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Customer Log
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all duration-150 ease-in-out font-['Inter'] text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="lan">lan</span>
+                Relay Network
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-all duration-150 ease-in-out font-['Inter'] text-xs font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                System Settings
+            </a>
+</div>
+<div class="p-4 mt-auto">
+<button class="w-full bg-primary-container text-white py-2.5 rounded font-label-sm text-label-sm flex items-center justify-center gap-2 shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                New Ticket
+            </button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-14 pb-20 md:pb-0 min-h-screen">
+<div class="p-lg max-w-[1400px] mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-lg gap-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface">Active Conversations</h1>
+<p class="font-body-md text-on-surface-variant">Monitoring real-time customer relay streams</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex bg-white border border-outline-variant rounded p-1">
+<button class="px-3 py-1 text-label-sm font-label-sm bg-primary-container text-white rounded-sm">Priority</button>
+<button class="px-3 py-1 text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-low transition-colors">Recent</button>
+<button class="px-3 py-1 text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-low transition-colors">Assigned</button>
+</div>
+<button class="flex items-center gap-1 border border-outline-variant bg-white px-3 py-1.5 rounded text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                        Filters
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid Pattern -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg">
+<!-- Conversation List Container -->
+<div class="xl:col-span-8 bg-white border border-slate-200 rounded overflow-hidden">
+<!-- Table Header -->
+<div class="bg-surface-container-low grid grid-cols-12 gap-gutter px-lg py-sm border-b border-slate-200 text-label-sm font-label-sm text-on-surface-variant">
+<div class="col-span-1">STATUS</div>
+<div class="col-span-4">CUSTOMER &amp; TOPIC</div>
+<div class="col-span-2">PRIORITY</div>
+<div class="col-span-3">LAST RESPONSE</div>
+<div class="col-span-2 text-right">ACTIONS</div>
+</div>
+<!-- Conversation Items -->
+<div class="divide-y divide-slate-100">
+<!-- Item 1 -->
+<div class="grid grid-cols-12 gap-gutter px-lg py-md items-center hover:bg-slate-50 transition-colors group">
+<div class="col-span-1 flex justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-error" title="Urgent Action Required"></div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-green-800">AM</div>
+<div>
+<h4 class="font-body-md font-semibold text-on-surface">Alex Murphy</h4>
+<p class="text-label-sm text-on-surface-variant truncate">Relay network latency issues in sector 7G</p>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">High</span>
+</div>
+<div class="col-span-3">
+<div class="flex flex-col">
+<span class="text-body-md">2 minutes ago</span>
+<span class="text-label-sm text-on-surface-variant">Waiting for agent</span>
+</div>
+</div>
+<div class="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary-container hover:text-white rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="reply">reply</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-highest rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="grid grid-cols-12 gap-gutter px-lg py-md items-center hover:bg-slate-50 transition-colors group bg-secondary-container/10">
+<div class="col-span-1 flex justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary" title="Active Thread"></div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a woman in a professional tech environment with clean minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwtlyniDVtKo-SgCeyd2i2pJ9TdkpAACTlJ7rHBTlU7Q5jbdiQLv28oZldS8u5klHldFqZOflVydMJAicdKomRUH1GcPa_TZpryeQKAYOGMqOJhKX_fC4dVt5KJZmBa52GovPx9k6kzwIg8tCmKY9OnvQmYVMfENhuHE-wV3jH0O2TZulgRNSaD7whF6s-1tQp4NcAyAiZY2ldXMbBO-CPobAZ4pOB8pGtY0NDjTdzgX0oKyinXEub2X_jps8m4OL5lpMCSuFxQHA"/>
+</div>
+<div>
+<h4 class="font-body-md font-semibold text-on-surface">Sarah Chen</h4>
+<p class="text-label-sm text-on-surface-variant truncate">Integration with API v4 documentation</p>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Medium</span>
+</div>
+<div class="col-span-3">
+<div class="flex flex-col">
+<span class="text-body-md">14 minutes ago</span>
+<span class="text-label-sm text-green-700">You: Sent documents</span>
+</div>
+</div>
+<div class="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary-container hover:text-white rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="reply">reply</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-highest rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="grid grid-cols-12 gap-gutter px-lg py-md items-center hover:bg-slate-50 transition-colors group">
+<div class="col-span-1 flex justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant" title="Pending"></div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-green-800">JD</div>
+<div>
+<h4 class="font-body-md font-semibold text-on-surface">James Dalton</h4>
+<p class="text-label-sm text-on-surface-variant truncate">Billing discrepancy on invoice #99281</p>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Low</span>
+</div>
+<div class="col-span-3">
+<div class="flex flex-col">
+<span class="text-body-md">45 minutes ago</span>
+<span class="text-label-sm text-on-surface-variant">Forwarded to Finance</span>
+</div>
+</div>
+<div class="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary-container hover:text-white rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="reply">reply</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-highest rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="grid grid-cols-12 gap-gutter px-lg py-md items-center hover:bg-slate-50 transition-colors group">
+<div class="col-span-1 flex justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-error" title="Urgent Action Required"></div>
+</div>
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="headshot of a man with spectacles in a bright modern office with warm wooden accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs9u7vFjrMegbto7dLbpkZUpMQ_5qHtURIosUAfutjCCog-a43KsrA7s0tMcpee_YqdAhoDLyWnE6r2knTL8d6nFQX_9U3y-Xm8DcRT3oalUgIfDFoAjkKak9coYwI6SvUWHAacOotROo6uvul5SyW4Z-2ViuYNDbOz2vXhpwr_qaKAeWlu_CBw4ij0yzCDl-2UnbX3aoZ_wKDbl_qSpNvKpeezpG5-s1h3mg5KaG51cCo6yXHXab0iGDrjxYq3gY6J6elMpCizcg"/>
+</div>
+<div>
+<h4 class="font-body-md font-semibold text-on-surface">Marcus Thorne</h4>
+<p class="text-label-sm text-on-surface-variant truncate">Emergency password reset for admin node</p>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">High</span>
+</div>
+<div class="col-span-3">
+<div class="flex flex-col">
+<span class="text-body-md">1 hour ago</span>
+<span class="text-label-sm text-error">SLA Violation Risk</span>
+</div>
+</div>
+<div class="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary-container hover:text-white rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="reply">reply</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-highest rounded text-outline-variant transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white px-lg py-sm border-t border-slate-200 flex items-center justify-between">
+<span class="text-label-sm text-on-surface-variant">Showing 1-15 of 248 conversations</span>
+<div class="flex gap-2">
+<button class="p-1 hover:bg-slate-100 border border-slate-200 rounded disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-1 hover:bg-slate-100 border border-slate-200 rounded">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Sidebar Analytics/Status Widgets (Bento Grid Style) -->
+<div class="xl:col-span-4 space-y-lg">
+<!-- Metrics Card -->
+<div class="bg-white border border-slate-200 rounded p-md">
+<h3 class="font-h3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant mb-md">Stream Metrics</h3>
+<div class="grid grid-cols-2 gap-sm">
+<div class="p-sm bg-surface-container-low rounded border border-outline-variant">
+<p class="text-label-sm text-on-surface-variant">Avg. Response</p>
+<p class="text-h2 font-h2 text-green-800">4m 12s</p>
+</div>
+<div class="p-sm bg-surface-container-low rounded border border-outline-variant">
+<p class="text-label-sm text-on-surface-variant">Tickets/Hr</p>
+<p class="text-h2 font-h2 text-green-800">18.4</p>
+</div>
+</div>
+</div>
+<!-- Priority Breakdown (Visual) -->
+<div class="bg-white border border-slate-200 rounded p-md">
+<h3 class="font-h3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant mb-md">Distribution</h3>
+<div class="space-y-sm">
+<div class="flex items-center justify-between text-label-sm mb-1">
+<span class="font-medium">Critical Priority</span>
+<span class="text-on-surface-variant">12</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 25%"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm mb-1 pt-2">
+<span class="font-medium">Active Streams</span>
+<span class="text-on-surface-variant">34</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<!-- System Health Signal -->
+<div class="bg-slate-900 text-white rounded p-md relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-green-400 text-[18px]" data-icon="cloud_done">cloud_done</span>
+<span class="text-label-sm uppercase tracking-widest font-bold">Relay Integrity</span>
+</div>
+<p class="text-h3 font-h3 mb-1">99.98%</p>
+<p class="text-[10px] text-slate-400 uppercase">Latency: 24ms (Nominal)</p>
+</div>
+<!-- Abstract signal graphic -->
+<div class="absolute right-[-20px] bottom-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="lan">lan</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 md:hidden bg-white/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-green-700 dark:text-green-400 font-bold tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Tickets</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Relay</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

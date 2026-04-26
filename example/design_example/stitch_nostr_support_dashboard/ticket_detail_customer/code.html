@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ticket Details - #TK-88291</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3131",
+                    "on-secondary-fixed": "#002107",
+                    "primary-container": "#2e7d32",
+                    "inverse-primary": "#88d982",
+                    "primary-fixed": "#a3f69c",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1c",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-dim": "#dadada",
+                    "surface-bright": "#f9f9f9",
+                    "on-secondary-container": "#2e7238",
+                    "tertiary-fixed-dim": "#bdcabe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "background": "#f9f9f9",
+                    "surface-container-high": "#e8e8e8",
+                    "secondary-fixed": "#abf4ac",
+                    "surface": "#f9f9f9",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeeeee",
+                    "on-surface-variant": "#40493d",
+                    "surface-tint": "#1b6d24",
+                    "tertiary-container": "#657167",
+                    "tertiary": "#4d5950",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d9e6da",
+                    "primary-fixed-dim": "#88d982",
+                    "on-primary-container": "#cbffc2",
+                    "on-primary-fixed-variant": "#005312",
+                    "on-primary-fixed": "#002204",
+                    "on-surface": "#1a1c1c",
+                    "outline": "#707a6c",
+                    "on-tertiary-fixed": "#131e17",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-tertiary-fixed-variant": "#3e4a41",
+                    "surface-variant": "#e2e2e2",
+                    "on-tertiary-container": "#e8f5e9",
+                    "primary": "#0d631b",
+                    "secondary": "#286b33",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bfcaba",
+                    "on-secondary-fixed-variant": "#07521d",
+                    "secondary-fixed-dim": "#90d792",
+                    "secondary-container": "#abf4ac"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "margin": "24px",
+                    "base": "4px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "h3": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h1": ["Inter"],
+                    "code": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "h2": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "code": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center w-full px-4 h-14 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200 ease-in-out">
+<span class="material-symbols-outlined text-zinc-500">arrow_back</span>
+</button>
+<h1 class="font-inter text-sm font-semibold tracking-tight text-zinc-800">Ticket Details</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200 ease-in-out">
+<span class="material-symbols-outlined text-zinc-500">more_vert</span>
+</button>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-4 py-6 mb-32">
+<!-- Ticket Header Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg mb-lg">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-xs">
+<span class="font-code text-label-sm text-zinc-500 uppercase tracking-widest">#TK-88291</span>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-lg flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Active
+                            </span>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container font-label-sm text-label-sm rounded-lg">High</span>
+</div>
+</div>
+<h2 class="font-h2 text-h2 text-zinc-900 leading-tight">Connection dropping during relay handoff</h2>
+</div>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white bg-zinc-200" data-alt="portrait of a female support agent with a professional and friendly expression, neutral lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvfo6Yq8s0Eu4fzYIQwq0fE8nnk83Z2YwIgow9HK6nuFO1gFeaYyxkLtSEVwaexGLxgi0043WlSyGckLjCiw39dXRDfykWkt74sMMzB12Nt_ey-99u6nZ2ga_bTEr9ZpP1VijQoo0eP9NdWWCZbl0_rGLs08s2RZzizrPmMQcnnlEX_ckOskyrIQZ4parqxIm71KfO_EZnbNNJMhlYMflpIMF3oiYFgVNDNeryx3G3qPWlPJ70NT3ndVS4v65GX8VWhJHEV344Ucw"/>
+<img class="w-8 h-8 rounded-full border-2 border-white bg-zinc-100" data-alt="abstract profile placeholder for customer account with corporate minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqqbI8d2XQWMmGlNn5D6yBOY17mukxl5ewYfiyGYqNry-ksWgaF_2p9Wl1rb-qO6Rrp_Hjk6eVPiplLP7Grq8PSBSxncv33rN6iv0A8yBZZQbushAhsYUolej2FgsnC247yIGH76XHs4WcSinB6KaxRZD_qdFhqFoAh2Y4Mq9TJYmDJVRmM7E99xTWF_KUlZyi3C2UseZYtz8z53yAEqMhHOuYoYlfIDzcPIdG66ZLSYxJF4VvdnFV0Ujkmd3oqXdNP-FyhZN8iJY"/>
+</div>
+</div>
+</div>
+<!-- Chat Timeline -->
+<div class="space-y-lg">
+<!-- 1. Customer message -->
+<div class="flex flex-col items-end w-full">
+<div class="max-w-[85%] md:max-w-[70%] bg-primary-container text-on-primary-container p-md rounded-xl rounded-tr-none shadow-sm">
+<div class="flex items-center justify-between gap-4 mb-1">
+<span class="font-label-sm text-label-sm font-bold">Me</span>
+<span class="font-label-sm text-[10px] opacity-70">10:42 AM</span>
+</div>
+<p class="font-body-md text-body-md">We are experiencing intermittent signal loss whenever a relay node handoff occurs. It seems to happen consistently on the v4 nodes in the western cluster.</p>
+</div>
+</div>
+<!-- 2. Agent reply -->
+<div class="flex flex-col items-start w-full">
+<div class="flex items-end gap-3 max-w-[85%] md:max-w-[70%]">
+<div class="flex-shrink-0 mb-4">
+<img class="w-8 h-8 rounded-full bg-tertiary-fixed border border-outline-variant" data-alt="professional corporate headshot of a support engineer Sarah with a clean minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi4YeLBastM8CJP_Ui7g6IloUje_Bn856j-bvqaesmt71H_EHCMvhusMuooKjhXKLLGzAKEpLS-FdGDHUzJu9LoOg5mZB1ckdBQLuAkAZ0GvWF-5mglqIW4_rx1rWxDeB7lVpvVcppOtVernsGCQnjBP4t1pLQzF9K49SwdqaHoKdxM7CUoLMCiaAmy2N0YVE41anSr6mJ8_qNakCk0VhLDkaFI5ZQFcFaB_SCInST8EMQ8NvU6LezOxFqzyEAHYGjAPUIrm8EGkw"/>
+</div>
+<div class="bg-white border border-outline-variant text-on-surface p-md rounded-xl rounded-bl-none shadow-sm">
+<div class="flex items-center justify-between gap-4 mb-1">
+<span class="font-label-sm text-label-sm font-bold text-primary">Sarah (Agent)</span>
+<span class="font-label-sm text-[10px] text-zinc-400">10:45 AM</span>
+</div>
+<p class="font-body-md text-body-md">Hello, I'm investigating this now. Could you confirm if you're using the standard protocol for the relay handshake or a custom implementation?</p>
+</div>
+</div>
+</div>
+<!-- 3. Encrypted DM -->
+<div class="flex flex-col items-end w-full">
+<div class="max-w-[85%] md:max-w-[70%] bg-zinc-800 text-white p-md rounded-xl rounded-tr-none border-l-4 border-primary">
+<div class="flex items-center justify-between gap-4 mb-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-label-sm text-label-sm font-bold text-primary-fixed">Encrypted DM</span>
+</div>
+<span class="font-label-sm text-[10px] opacity-50">10:48 AM</span>
+</div>
+<p class="font-body-md text-body-md font-mono text-[13px] text-zinc-300">[SECURE CHANNEL] User credential sync attempted for UID: 992-X1. Validation token attached. Please proceed with environment audit.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Message Composer Container -->
+<div class="fixed bottom-16 left-0 w-full bg-white border-t border-outline-variant px-4 py-4 md:px-lg">
+<div class="max-w-4xl mx-auto">
+<!-- Toggles -->
+<div class="flex gap-2 mb-sm">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-container text-on-primary-container rounded-lg text-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm">reply</span> Reply
+                </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 text-zinc-600 hover:bg-zinc-200 rounded-lg text-label-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-sm">lock</span> DM
+                </button>
+</div>
+<!-- Input Area -->
+<div class="relative flex items-end gap-2 bg-zinc-50 border border-outline-variant rounded-xl p-2 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-md text-body-md py-2 px-2" placeholder="Type your message..." rows="1" style="min-height: 44px;"></textarea>
+<div class="flex items-center gap-1 px-1">
+<button class="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-zinc-600 rounded-lg">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-lg hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-white border-t border-zinc-200 dark:border-zinc-800">
+<a class="flex flex-col items-center justify-center text-green-700 dark:text-green-500 bg-green-50 dark:bg-green-900/20 rounded-md py-1 w-16 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="font-inter text-[11px] font-bold">Tickets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 py-1 hover:text-green-600 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">book</span>
+<span class="font-inter text-[11px] font-medium">Knowledge</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 py-1 hover:text-green-600 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-[11px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>
