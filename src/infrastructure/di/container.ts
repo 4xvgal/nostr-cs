@@ -69,7 +69,7 @@ export function buildContainer(
     updateStatusUseCase: new UpdateStatusUseCase(relayPort, relayDiscovery),
     sendDMUseCase: new SendDMUseCase(relayPort, cryptoPort, relayDiscovery),
     internalNoteUseCase: new InternalNoteUseCase(relayPort, cryptoPort, relayDiscovery),
-    submitCsatUseCase: new SubmitCsatUseCase(relayPort, relayDiscovery),
+    submitCsatUseCase: new SubmitCsatUseCase(relayPort, cryptoPort, relayDiscovery),
     subscribeAsCustomerUseCase: new SubscribeAsCustomerUseCase(
       relayPort,
       cryptoPort,

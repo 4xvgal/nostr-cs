@@ -84,15 +84,19 @@ export class SubscribeAsAgentUseCase {
       })
     } else if (ev.kind === 7704) {
       const threadRoot = ev.tags.find((t) => t[0] === 'e')?.[1]
-      const rating = Number(ev.tags.find((t) => t[0] === 'rating')?.[1] ?? 0)
-      if (!threadRoot || rating < 1 || rating > 5) return
+      if (!threadRoot) return
+      const plain = await this.crypto.decrypt(ev.content, ev.pubkey)
+      const body = JSON.parse(plain) as { rating?: unknown; comment?: unknown }
+      const rating = Number(body.rating ?? 0)
+      if (rating < 1 || rating > 5) return
+      const comment = typeof body.comment === 'string' ? body.comment : ''
       this.eventBus.emit({
         type: 'csat:submitted',
         payload: {
           ticketId,
           threadRoot,
           rating: rating as 1 | 2 | 3 | 4 | 5,
-          comment: ev.content,
+          comment,
           byPubkey: ev.pubkey,
           at: ev.created_at,
         },

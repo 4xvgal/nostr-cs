@@ -146,7 +146,7 @@ you'd buy.
 | 7701 | status change | plaintext `status` tag | agent |
 | 7702 | public thread reply | NIP-44 body to customer | agent |
 | 7703 | internal note | NIP-44 body, per recipient | agent |
-| 7704 | CSAT response | plaintext rating + comment | customer |
+| 7704 | CSAT response | NIP-44 body to agent (rating + comment private) | customer |
 | 14 / 13 / 1059 | NIP-17 rumor / seal / gift wrap (DMs) | gift-wrap, sender hidden | both |
 | 0 / 10002 / 10050 / 10166 | profile / NIP-65 / NIP-17 relay list / NIP-66 monitor | standard | both |
 | 30078 | NIP-78 app data (e.g. ephemeral keyring) | NIP-44 self | client-side state |

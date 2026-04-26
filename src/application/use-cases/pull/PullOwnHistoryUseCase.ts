@@ -37,7 +37,7 @@ export class PullOwnHistoryUseCase {
 
   async execute(role: 'agent' | 'customer', windowMs = 5000): Promise<void> {
     const me = await this.keyProvider.getPubkey()
-    const kinds = role === 'customer' ? [7700] : [7701, 7702, 7703]
+    const kinds = role === 'customer' ? [7700, 7704] : [7701, 7702, 7703]
 
     const subs: Subscription[] = []
     const onEvent = (ev: SignedEvent): void => {
@@ -114,6 +114,28 @@ export class PullOwnHistoryUseCase {
       this.eventBus.emit({
         type: 'ticket:note',
         payload: { ticketId, threadRoot, body, byPubkey: me, at: ev.created_at },
+      })
+    } else if (ev.kind === 7704) {
+      // Customer's own past CSAT — encrypted to the agent at submit time;
+      // sender can decrypt via NIP-44 conversation-key symmetry.
+      const threadRoot = ev.tags.find((t) => t[0] === 'e')?.[1]
+      const agentPubkey = ev.tags.find((t) => t[0] === 'p')?.[1]
+      if (!threadRoot || !agentPubkey) return
+      const plain = await this.crypto.decrypt(ev.content, agentPubkey)
+      const body = JSON.parse(plain) as { rating?: unknown; comment?: unknown }
+      const rating = Number(body.rating ?? 0)
+      if (rating < 1 || rating > 5) return
+      const comment = typeof body.comment === 'string' ? body.comment : ''
+      this.eventBus.emit({
+        type: 'csat:submitted',
+        payload: {
+          ticketId,
+          threadRoot,
+          rating: rating as 1 | 2 | 3 | 4 | 5,
+          comment,
+          byPubkey: me,
+          at: ev.created_at,
+        },
       })
     }
   }

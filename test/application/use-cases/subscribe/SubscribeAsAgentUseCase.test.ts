@@ -148,9 +148,11 @@ describe('SubscribeAsAgentUseCase', () => {
     }
   })
 
-  test('kind 7704 with valid rating → emits csat:submitted', async () => {
+  test('kind 7704 with valid rating → decrypts and emits csat:submitted', async () => {
     const tid = TicketId.generate()
-    const { uc, ne, eb } = build()
+    const { uc, ne, eb } = build({
+      decryptResult: () => JSON.stringify({ rating: 5, comment: 'nice work' }),
+    })
     await uc.execute()
 
     ne.rec.subscribe[0]!.onEvent(
@@ -161,9 +163,8 @@ describe('SubscribeAsAgentUseCase', () => {
           ['e', 'root'],
           ['ticket_id', tid.toString()],
           ['p', ME],
-          ['rating', '5'],
         ],
-        content: 'nice work',
+        content: 'cipher',
       }),
     )
     await flush()
@@ -174,12 +175,15 @@ describe('SubscribeAsAgentUseCase', () => {
     if (ev.type === 'csat:submitted') {
       expect(ev.payload.rating).toBe(5)
       expect(ev.payload.comment).toBe('nice work')
+      expect(ev.payload.byPubkey).toBe('pk-customer')
     }
   })
 
   test('kind 7704 with rating out of range → dropped', async () => {
     const tid = TicketId.generate()
-    const { uc, ne, eb } = build()
+    const { uc, ne, eb } = build({
+      decryptResult: () => JSON.stringify({ rating: 7, comment: 'oops' }),
+    })
     await uc.execute()
 
     ne.rec.subscribe[0]!.onEvent(
@@ -188,8 +192,9 @@ describe('SubscribeAsAgentUseCase', () => {
         tags: [
           ['e', 'root'],
           ['ticket_id', tid.toString()],
-          ['rating', '7'],
+          ['p', ME],
         ],
+        content: 'cipher',
       }),
     )
     await flush()
