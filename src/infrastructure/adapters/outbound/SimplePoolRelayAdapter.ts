@@ -9,6 +9,7 @@ import type {
   UnsignedEvent,
 } from '../../../application/ports/outbound/NostrEventPort.js'
 import type { KeyProvider } from '../../../application/ports/outbound/KeyProvider.js'
+import { publishToAtLeastOneRelay } from './publishToAtLeastOneRelay.js'
 
 export class SimplePoolRelayAdapter implements NostrEventPort {
   constructor(
@@ -27,12 +28,7 @@ export class SimplePoolRelayAdapter implements NostrEventPort {
         : await this.keyProvider.sign(event)
 
     const relays = targetRelays && targetRelays.length > 0 ? targetRelays : this.defaultRelays
-    const results = this.pool.publish(relays, signed as NtEvent)
-    try {
-      await Promise.any(results)
-    } catch {
-      /* every relay rejected — swallow; caller observes delivery via subscriptions */
-    }
+    await publishToAtLeastOneRelay(this.pool, relays, signed as NtEvent)
     return signed
   }
 
