@@ -183,12 +183,14 @@ export interface ProfilePortRecorder {
   fetchDMRelays: string[]
   publishDMRelays: { dmRelays: string[]; targetRelays: string[] }[]
   fetchProfile: { pubkey: string; hintRelays: string[] | undefined }[]
+  hasProfile: { pubkey: string; hintRelays: string[] | undefined }[]
   publishProfile: { targetRelays: string[] }[]
 }
 
 export function makeProfilePort(config: {
   relaySetsByPubkey?: Record<string, RelaySet>
   dmRelaysByPubkey?: Record<string, string[]>
+  profilesByPubkey?: Record<string, boolean>
 }): { port: ProfilePort; rec: ProfilePortRecorder } {
   const rec: ProfilePortRecorder = {
     fetchRelaySet: [],
@@ -196,6 +198,7 @@ export function makeProfilePort(config: {
     fetchDMRelays: [],
     publishDMRelays: [],
     fetchProfile: [],
+    hasProfile: [],
     publishProfile: [],
   }
   const port: ProfilePort = {
@@ -220,6 +223,10 @@ export function makeProfilePort(config: {
     fetchProfile: async (pubkey, hintRelays) => {
       rec.fetchProfile.push({ pubkey, hintRelays })
       throw new Error('not implemented')
+    },
+    hasProfile: async (pubkey, hintRelays) => {
+      rec.hasProfile.push({ pubkey, hintRelays })
+      return config.profilesByPubkey?.[pubkey] ?? false
     },
     publishProfile: async (_profile, targetRelays) => {
       rec.publishProfile.push({ targetRelays })
@@ -272,6 +279,7 @@ export function makeRelayDiscovery(config: {
     fetchProfile: async () => {
       throw new Error('not implemented')
     },
+    hasProfile: async () => false,
     publishProfile: async () => {},
   }
   return new RelayDiscoveryService(port, config.bootstrap ?? ['wss://boot.example'])

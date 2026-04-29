@@ -9,5 +9,6 @@ export interface ProfilePort {
   publishDMRelays(dmRelays: string[], targetRelays: string[]): Promise<void>
 
   fetchProfile(pubkey: string, hintRelays?: string[]): Promise<NostrProfile>
+  hasProfile(pubkey: string, hintRelays?: string[]): Promise<boolean>
   publishProfile(profile: NostrProfile, targetRelays: string[]): Promise<void>
 }

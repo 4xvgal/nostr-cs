@@ -33,15 +33,23 @@ export class BootstrapUseCase {
     }
 
     if (this.profileMeta) {
-      const profile = new NostrProfile(
-        pubkey,
-        this.profileMeta.name,
-        '',
-        '',
-        this.profileMeta.csRole,
-        relaySet,
-      )
-      await this.profilePort.publishProfile(profile, spreadRelays)
+      const isAgent = this.profileMeta.csRole === 'agent'
+      const skip =
+        isAgent &&
+        (await this.profilePort
+          .hasProfile(pubkey, spreadRelays)
+          .catch(() => false))
+      if (!skip) {
+        const profile = new NostrProfile(
+          pubkey,
+          this.profileMeta.name,
+          '',
+          '',
+          this.profileMeta.csRole,
+          relaySet,
+        )
+        await this.profilePort.publishProfile(profile, spreadRelays)
+      }
     }
   }
 }

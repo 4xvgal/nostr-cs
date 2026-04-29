@@ -74,6 +74,42 @@ describe('BootstrapUseCase', () => {
     expect(prec.publishDMRelays).toHaveLength(1)
   })
 
+  test('agent mode: skips profile publish when kind:0 already exists', async () => {
+    const { port: profilePort, rec: prec } = makeProfilePort({
+      profilesByPubkey: { 'pk-self': true },
+    })
+    const { port: relayIndex } = makeRelayIndex({ urls: [] })
+    const { port: keyProvider } = makeKeyProvider({ pubkey: 'pk-self' })
+
+    const uc = new BootstrapUseCase(profilePort, relayIndex, keyProvider, CONFIG, {
+      name: 'Alice',
+      csRole: 'agent',
+    })
+    await uc.execute()
+
+    expect(prec.hasProfile).toHaveLength(1)
+    expect(prec.hasProfile[0]!.pubkey).toBe('pk-self')
+    expect(prec.publishProfile).toHaveLength(0)
+    expect(prec.publishRelaySet).toHaveLength(1)
+  })
+
+  test('customer mode: always publishes profile, never checks existence', async () => {
+    const { port: profilePort, rec: prec } = makeProfilePort({
+      profilesByPubkey: { 'pk-self': true },
+    })
+    const { port: relayIndex } = makeRelayIndex({ urls: [] })
+    const { port: keyProvider } = makeKeyProvider({ pubkey: 'pk-self' })
+
+    const uc = new BootstrapUseCase(profilePort, relayIndex, keyProvider, CONFIG, {
+      name: 'Bob',
+      csRole: 'customer',
+    })
+    await uc.execute()
+
+    expect(prec.hasProfile).toHaveLength(0)
+    expect(prec.publishProfile).toHaveLength(1)
+  })
+
   test('tolerates relayIndex failure — spread falls back to bootstrap only', async () => {
     const { port: profilePort, rec: prec } = makeProfilePort({})
     const { port: relayIndex } = makeRelayIndex({ fail: true })

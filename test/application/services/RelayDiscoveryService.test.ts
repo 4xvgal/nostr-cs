@@ -18,6 +18,7 @@ function makePort(overrides: Partial<ProfilePort>): ProfilePort {
     fetchProfile: async () => {
       throw new Error('not implemented')
     },
+    hasProfile: async () => false,
     publishProfile: async () => {},
     ...overrides,
   }

@@ -85,6 +85,19 @@ export class SimplePoolProfileAdapter implements ProfilePort {
     )
   }
 
+  async hasProfile(pubkey: string, hintRelays?: string[]): Promise<boolean> {
+    const relays =
+      hintRelays && hintRelays.length > 0
+        ? [...new Set([...this.queryRelays, ...hintRelays])]
+        : this.queryRelays
+    const events = await this.pool.querySync(relays, {
+      kinds: [0],
+      authors: [pubkey],
+      limit: 1,
+    })
+    return events.length > 0
+  }
+
   async publishProfile(profile: NostrProfile, targetRelays: string[]): Promise<void> {
     const signed = await this.keyProvider.sign({
       kind: 0,
