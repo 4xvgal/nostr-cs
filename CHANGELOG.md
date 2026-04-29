@@ -1,5 +1,11 @@
 # nostr-cs
 
+## 0.0.5
+
+### Patch Changes
+
+- ec4adb3: skip kind:0 publish on agent bootstrap when profile exists
+
 ## 0.0.4
 
 ### Patch Changes
