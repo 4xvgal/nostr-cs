@@ -299,6 +299,12 @@
                 class="w-full min-h-[100px] p-4 text-body-md border-none focus:ring-0 resize-none outline-none"
                 placeholder={mode === 'reply' ? 'Type a reply…' : mode === 'dm' ? 'Type an encrypted DM…' : 'Type an internal note…'}
                 bind:value={composerText}
+                onkeydown={(e) => {
+                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                    e.preventDefault()
+                    if ((composerText.trim() || composerAttachments.length > 0) && !sending) void send()
+                  }
+                }}
               ></textarea>
               <div class="flex items-center justify-between gap-3 p-3 bg-surface-container-low border-t border-outline-variant">
                 <AttachmentPicker bind:attachments={composerAttachments} />

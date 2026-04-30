@@ -63,7 +63,17 @@
 
     <label class="block">
       <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Description</span>
-      <textarea class="mt-1 w-full min-h-[120px] px-md py-2 bg-white border border-outline-variant rounded-lg outline-none focus:ring-2 focus:ring-primary resize-none" bind:value={body} placeholder="Describe the issue…"></textarea>
+      <textarea
+        class="mt-1 w-full min-h-[120px] px-md py-2 bg-white border border-outline-variant rounded-lg outline-none focus:ring-2 focus:ring-primary resize-none"
+        bind:value={body}
+        placeholder="Describe the issue…"
+        onkeydown={(e) => {
+          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+            e.preventDefault()
+            if (!submitting) void submit()
+          }
+        }}
+      ></textarea>
     </label>
 
     <label class="block">

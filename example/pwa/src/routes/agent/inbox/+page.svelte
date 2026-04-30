@@ -8,7 +8,7 @@
   import { isIdea, categoryLabel } from '$lib/nostr/category.js'
 
   type SortMode = 'priority' | 'recent'
-  let sort = $state<SortMode>('priority')
+  let sort = $state<SortMode>('recent')
   let query = $state('')
 
   const myPubkey = $derived($identity?.pubkey ?? '')
