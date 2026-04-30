@@ -6,10 +6,12 @@
     ticketIdStr,
     status,
     priority,
+    idea = false,
   }: {
     ticketIdStr: string
     status: TicketStatus
     priority: Priority
+    idea?: boolean
   } = $props()
 
   const statusStyle: Record<TicketStatus, string> = {
@@ -31,9 +33,16 @@
   <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-bold tracking-wider uppercase">
     {shortTicketId(ticketIdStr)}
   </span>
-  <span class="px-2 py-0.5 rounded {statusStyle[status]}">
-    <span class="opacity-60">status:</span><span class="font-bold">{status}</span>
-  </span>
+  {#if idea}
+    <span class="px-2 py-0.5 rounded inline-flex items-center gap-1" style="background:#EEF0FB;color:#515AC0;">
+      <span class="material-symbols-outlined text-[14px]">bolt</span>
+      <span class="font-bold">Idea</span>
+    </span>
+  {:else}
+    <span class="px-2 py-0.5 rounded {statusStyle[status]}">
+      <span class="opacity-60">status:</span><span class="font-bold">{status}</span>
+    </span>
+  {/if}
   <span class="px-2 py-0.5 rounded {priorityStyle[priority]}">
     <span class="opacity-60">priority:</span><span class="font-bold">{priority}</span>
   </span>

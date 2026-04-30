@@ -9,6 +9,7 @@
 
   const items: { label: string; icon: string; href: string }[] = [
     { label: 'Active Tickets', icon: 'confirmation_number', href: '/agent/inbox' },
+    { label: 'Ideas', icon: 'bolt', href: '/agent/ideas' },
     { label: 'Settings', icon: 'settings', href: '/settings' },
   ]
 </script>

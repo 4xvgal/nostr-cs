@@ -22,13 +22,20 @@
   import PubkeyChip from '$lib/components/PubkeyChip.svelte'
   import AttachmentPicker from '$lib/components/AttachmentPicker.svelte'
   import MessageBody from '$lib/components/MessageBody.svelte'
-  import { encodeEnvelope, type EncryptedAttachment } from 'nostr-cs'
+  import { encodeEnvelope, type EncryptedAttachment, type TicketStatus } from 'nostr-cs'
+  import { isIdea, categoryLabel } from '$lib/nostr/category.js'
 
   const ticketIdStr = $derived($page.params.id ?? '')
   const ticket = $derived($tickets.get(ticketIdStr))
   const myPubkey = $derived($identity?.pubkey ?? '')
+  const idea = $derived(!!ticket && isIdea(ticket))
   const status = $derived(ticket ? ($currentStatus.get(ticket.eventId) ?? ticket.status) : 'open')
   const isResolved = $derived(status === 'resolved' || status === 'closed')
+
+  function back(): void {
+    if (typeof history !== 'undefined' && history.length > 1) history.back()
+    else goto(idea ? '/agent/ideas' : '/agent/inbox')
+  }
 
   const timeline = $derived(
     ticket
@@ -110,7 +117,9 @@
     }
   }
 
-  async function setStatus(newStatus: 'in_progress' | 'resolved' | 'closed'): Promise<void> {
+  let republishing = $state(false)
+
+  async function setStatus(newStatus: TicketStatus): Promise<void> {
     if (!ticket) return
     const c = get(client)
     if (!c) return
@@ -134,13 +143,22 @@
 
   const resolve = (): Promise<void> => setStatus('resolved')
   const startProgress = (): Promise<void> => setStatus('in_progress')
+
+  async function republishStatus(): Promise<void> {
+    republishing = true
+    try {
+      await setStatus(status)
+    } finally {
+      republishing = false
+    }
+  }
 </script>
 
 {#if !ticket}
   <div class="px-4 py-12 text-center text-on-surface-variant">
     <span class="material-symbols-outlined text-3xl text-outline">search_off</span>
     <p class="mt-2 text-body-md">Ticket not found in local cache.</p>
-    <button class="mt-3 text-primary text-label-sm font-bold" onclick={() => goto('/agent/inbox')}>Back to inbox</button>
+    <button class="mt-3 text-primary text-label-sm font-bold" onclick={back}>Back</button>
   </div>
 {:else}
   <div class="flex flex-col md:flex-row min-h-[calc(100dvh-3.5rem)]">
@@ -149,23 +167,34 @@
         <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
           <div class="min-w-0">
             <div class="flex items-center gap-2 mb-2">
-              <button class="material-symbols-outlined text-on-surface-variant md:hidden" onclick={() => goto('/agent/inbox')}>arrow_back</button>
-              <TicketMeta ticketIdStr={ticket.id.toString()} status={status} priority={ticket.priority} />
+              <button class="material-symbols-outlined text-on-surface-variant md:hidden" onclick={back}>arrow_back</button>
+              <TicketMeta ticketIdStr={ticket.id.toString()} status={status} priority={ticket.priority} {idea} />
             </div>
             <h1 class="text-h2 text-on-surface">{ticket.title}</h1>
           </div>
-          <div class="flex gap-2">
-            {#if status === 'open'}
-              <button class="border border-outline-variant px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:bg-surface-container-low" onclick={startProgress}>
-                <span class="material-symbols-outlined text-[18px]">play_arrow</span> Start
+          {#if !idea}
+            <div class="flex gap-2">
+              {#if status === 'open'}
+                <button class="border border-outline-variant px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:bg-surface-container-low" onclick={startProgress}>
+                  <span class="material-symbols-outlined text-[18px]">play_arrow</span> Start
+                </button>
+              {/if}
+              {#if !isResolved}
+                <button class="bg-primary text-on-primary px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:opacity-90" onclick={resolve}>
+                  <span class="material-symbols-outlined text-[18px]">check_circle</span> Resolve
+                </button>
+              {/if}
+              <button
+                class="border border-outline-variant px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:bg-surface-container-low disabled:opacity-50"
+                onclick={republishStatus}
+                disabled={republishing}
+                title={`Re-emit a kind 7701 with current status (${status}) — useful when a relay missed the prior publish.`}
+              >
+                <span class="material-symbols-outlined text-[18px]">refresh</span>
+                {republishing ? 'Republishing…' : 'Republish'}
               </button>
-            {/if}
-            {#if !isResolved}
-              <button class="bg-primary text-on-primary px-3 py-1.5 rounded-lg text-label-sm flex items-center gap-2 hover:opacity-90" onclick={resolve}>
-                <span class="material-symbols-outlined text-[18px]">check_circle</span> Resolve
-              </button>
-            {/if}
-          </div>
+            </div>
+          {/if}
         </div>
         <div class="flex flex-wrap gap-6 text-label-sm text-on-surface-variant">
           <div class="flex items-center gap-2">
@@ -178,7 +207,7 @@
           </div>
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-[16px]">label</span>
-            <span class="capitalize">{ticket.category}</span>
+            <span>{categoryLabel(ticket.category)}</span>
           </div>
         </div>
       </div>
@@ -324,12 +353,17 @@
           <h4 class="text-label-sm text-outline uppercase tracking-widest mb-4 font-bold">Recent History</h4>
           <div class="grid grid-cols-1 gap-2">
             {#each recentTickets as rt}
+              {@const rIsIdea = isIdea(rt)}
               {@const rst = $currentStatus.get(rt.eventId) ?? rt.status}
               <button class="text-left p-3 bg-white border border-outline-variant rounded-lg hover:border-primary transition-colors" onclick={() => goto(`/agent/tickets/${rt.id.toString()}`)}>
                 <p class="text-label-sm font-bold mb-1 truncate">{rt.title}</p>
                 <div class="flex justify-between items-center">
                   <span class="text-[10px] text-outline">{timeAgo(rt.createdAt)}</span>
-                  <span class="bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded text-[9px] uppercase">{rst}</span>
+                  {#if rIsIdea}
+                    <span class="px-1.5 py-0.5 rounded text-[9px] uppercase" style="background:#EEF0FB;color:#515AC0;">Idea</span>
+                  {:else}
+                    <span class="bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded text-[9px] uppercase">{rst}</span>
+                  {/if}
                 </div>
               </button>
             {/each}
