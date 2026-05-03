@@ -23,6 +23,8 @@ export interface StoredSettings {
     read: string[]
     dm: string[]
   }
+  stripImageMetadata: boolean
+  obfuscateFilename: boolean
 }
 
 function parseRelayList(raw: string | undefined): string[] {
@@ -52,6 +54,8 @@ function loadInitial(): StoredSettings {
     role: null,
     profileName: '',
     relays: { ...DEFAULT_RELAYS },
+    stripImageMetadata: true,
+    obfuscateFilename: true,
   }
   if (!browser) return blank
   try {
@@ -68,6 +72,8 @@ function loadInitial(): StoredSettings {
         read: parsed.relays?.read ?? [],
         dm: parsed.relays?.dm ?? [],
       },
+      stripImageMetadata: parsed.stripImageMetadata ?? true,
+      obfuscateFilename: parsed.obfuscateFilename ?? true,
     }
   } catch {
     return blank
@@ -85,5 +91,5 @@ if (browser) {
 }
 
 export function clearSettings(): void {
-  settings.set({ key: null, role: null, profileName: '', relays: { ...DEFAULT_RELAYS } })
+  settings.set({ key: null, role: null, profileName: '', relays: { ...DEFAULT_RELAYS }, stripImageMetadata: true, obfuscateFilename: true })
 }

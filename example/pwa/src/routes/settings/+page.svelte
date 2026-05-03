@@ -194,6 +194,40 @@
     </div>
   </section>
 
+  <section class="bg-white border border-outline-variant rounded-lg p-md">
+    <h2 class="text-label-sm uppercase tracking-widest text-on-surface-variant font-bold mb-md">Privacy</h2>
+    <label class="flex items-center justify-between gap-4 cursor-pointer">
+      <div>
+        <p class="text-body-md font-medium">Strip image metadata</p>
+        <p class="text-label-sm text-on-surface-variant">GPS 위치, 카메라 기종 등 EXIF 정보를 이미지 첨부 시 자동으로 제거합니다.</p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={$settings.stripImageMetadata}
+        class="relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary {$settings.stripImageMetadata ? 'bg-primary' : 'bg-outline-variant'}"
+        onclick={() => settings.update((s) => ({ ...s, stripImageMetadata: !s.stripImageMetadata }))}
+      >
+        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 {$settings.stripImageMetadata ? 'translate-x-5' : 'translate-x-0'}"></span>
+      </button>
+    </label>
+    <label class="flex items-center justify-between gap-4 cursor-pointer mt-md pt-md border-t border-outline-variant">
+      <div>
+        <p class="text-body-md font-medium">파일명 난독화</p>
+        <p class="text-label-sm text-on-surface-variant">첨부 파일명을 무작위 이름으로 대체해 수신자에게 원본 파일명이 노출되지 않도록 합니다.</p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={$settings.obfuscateFilename}
+        class="relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary {$settings.obfuscateFilename ? 'bg-primary' : 'bg-outline-variant'}"
+        onclick={() => settings.update((s) => ({ ...s, obfuscateFilename: !s.obfuscateFilename }))}
+      >
+        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 {$settings.obfuscateFilename ? 'translate-x-5' : 'translate-x-0'}"></span>
+      </button>
+    </label>
+  </section>
+
   <UploadedAttachmentsPanel />
 
   <section class="bg-error-container/30 border border-error rounded-lg p-md">

@@ -2,6 +2,8 @@
   import { encryptBlob } from '$lib/crypto/aesgcm.js'
   import { uploadBlob, deleteBlob } from '$lib/blossom/client.js'
   import { record as keyringRecord, forget as keyringForget, get as keyringGet } from '$lib/blossom/keyring.js'
+  import { stripImageMetadata } from '$lib/image/stripMetadata.js'
+  import { settings } from '$lib/stores/settings.js'
   import type { EncryptedAttachment } from 'nostr-cs'
 
   let {
@@ -17,18 +19,22 @@
     busy = true
     try {
       for (const file of Array.from(files)) {
-        const buf = new Uint8Array(await file.arrayBuffer())
+        const raw = new Uint8Array(await file.arrayBuffer())
+        const { data: buf, mime } = $settings.stripImageMetadata
+          ? await stripImageMetadata(raw, file.type || 'application/octet-stream')
+          : { data: raw, mime: file.type || 'application/octet-stream' }
         const enc = await encryptBlob(buf)
         const desc = await uploadBlob({
           ciphertext: enc.ciphertext,
           ciphertextSha256: enc.ciphertextSha256,
           contentType: 'application/octet-stream',
         })
+        const sentName = $settings.obfuscateFilename ? randomFilename(file.name) : file.name
         const att: EncryptedAttachment = {
           type: 'encrypted_blob',
-          mime: file.type || 'application/octet-stream',
-          name: file.name,
-          size: file.size,
+          mime,
+          name: sentName,
+          size: buf.length,
           sha256: enc.plaintextSha256,
           cipher: 'aes-256-gcm',
           key: enc.keyB64,
@@ -38,12 +44,10 @@
             servers: desc.servers,
           },
         }
-        // Persist the ephemeral nsec into the Nostr-backed keyring so we can
-        // DELETE this blob later (BUD-01 requires the original uploader's key).
         keyringRecord(enc.ciphertextSha256, {
           nsec: desc.ephemeralNsec,
           uploadedAt: Math.floor(Date.now() / 1000),
-          size: file.size,
+          size: buf.length,
           mime: att.mime,
           name: file.name,
           servers: desc.servers,
@@ -78,6 +82,11 @@
       // remains so the user can retry from Settings. Log for diagnostics.
       console.warn('Background blob cleanup failed:', e)
     }
+  }
+
+  function randomFilename(original: string): string {
+    const ext = original.includes('.') ? '.' + original.split('.').pop() : ''
+    return crypto.randomUUID() + ext
   }
 
   function fmtSize(n: number): string {
